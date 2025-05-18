@@ -1,0 +1,559 @@
+python train.py
+==========================================================================================
+Layer (type:depth-idx)                   Output Shape              Param #
+==========================================================================================
+SSD                                      [200, 4]                  --
+├─GeneralizedRCNNTransform: 1-1          [1, 3, 300, 300]          --
+├─SSDFeatureExtractorVGG: 1-2            [1, 256, 1, 1]            512
+│    └─Sequential: 2-1                   [1, 512, 38, 38]          --
+│    │    └─Conv2d: 3-1                  [1, 64, 300, 300]         (1,792)
+│    │    └─ReLU: 3-2                    [1, 64, 300, 300]         --
+│    │    └─Conv2d: 3-3                  [1, 64, 300, 300]         (36,928)
+│    │    └─ReLU: 3-4                    [1, 64, 300, 300]         --
+│    │    └─MaxPool2d: 3-5               [1, 64, 150, 150]         --
+│    │    └─Conv2d: 3-6                  [1, 128, 150, 150]        73,856
+│    │    └─ReLU: 3-7                    [1, 128, 150, 150]        --
+│    │    └─Conv2d: 3-8                  [1, 128, 150, 150]        147,584
+│    │    └─ReLU: 3-9                    [1, 128, 150, 150]        --
+│    │    └─MaxPool2d: 3-10              [1, 128, 75, 75]          --
+│    │    └─Conv2d: 3-11                 [1, 256, 75, 75]          295,168
+│    │    └─ReLU: 3-12                   [1, 256, 75, 75]          --
+│    │    └─Conv2d: 3-13                 [1, 256, 75, 75]          590,080
+│    │    └─ReLU: 3-14                   [1, 256, 75, 75]          --
+│    │    └─Conv2d: 3-15                 [1, 256, 75, 75]          590,080
+│    │    └─ReLU: 3-16                   [1, 256, 75, 75]          --
+│    │    └─MaxPool2d: 3-17              [1, 256, 38, 38]          --
+│    │    └─Conv2d: 3-18                 [1, 512, 38, 38]          1,180,160
+│    │    └─ReLU: 3-19                   [1, 512, 38, 38]          --
+│    │    └─Conv2d: 3-20                 [1, 512, 38, 38]          2,359,808
+│    │    └─ReLU: 3-21                   [1, 512, 38, 38]          --
+│    │    └─Conv2d: 3-22                 [1, 512, 38, 38]          2,359,808
+│    │    └─ReLU: 3-23                   [1, 512, 38, 38]          --
+│    └─ModuleList: 2-2                   --                        --
+│    │    └─Sequential: 3-24             [1, 1024, 19, 19]         12,848,640
+│    │    └─Sequential: 3-25             [1, 512, 10, 10]          1,442,560
+│    │    └─Sequential: 3-26             [1, 256, 5, 5]            360,832
+│    │    └─Sequential: 3-27             [1, 256, 3, 3]            328,064
+│    │    └─Sequential: 3-28             [1, 256, 1, 1]            328,064
+├─SSDHead: 1-3                           [1, 8732, 5]              --
+│    └─SSDRegressionHead: 2-3            [1, 8732, 4]              --
+│    │    └─ModuleList: 3-29             --                        534,648
+│    └─SSDClassificationHead: 2-4        [1, 8732, 5]              --
+│    │    └─ModuleList: 3-30             --                        668,310
+├─DefaultBoxGenerator: 1-4               [8732, 4]                 --
+==========================================================================================
+Total params: 24,146,894
+Trainable params: 24,108,174
+Non-trainable params: 38,720
+Total mult-adds (G): 30.60
+==========================================================================================
+Input size (MB): 4.92
+Forward/backward pass size (MB): 202.88
+Params size (MB): 96.59
+Estimated Total Size (MB): 304.38
+==========================================================================================
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     1/100      1.73G   6.67102179      0.89733153          5.77369028: 100%|██████████| 102/102 [00:14<00:00,  6.93it/s] 
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:05<00:00,  6.80it/s]
+       all        583       1581      0.535      0.308      0.349      0.176
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     2/100      2.84G   3.27916840      0.42940240          2.84976600: 100%|██████████| 102/102 [00:17<00:00,  5.90it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:11<00:00,  3.17it/s]
+       all        583       1581      0.955       0.83      0.926      0.512
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     3/100      2.84G   2.56798749      0.35782808          2.21015942: 100%|██████████| 102/102 [00:21<00:00,  4.80it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.57it/s]
+       all        583       1581      0.951      0.929      0.968      0.542
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     4/100      2.84G   2.22638119      0.30873679          1.91764441: 100%|██████████| 102/102 [00:20<00:00,  4.89it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.37it/s]
+       all        583       1581      0.945      0.952      0.973       0.54
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     5/100      2.84G   1.99790928      0.27731152          1.72059776: 100%|██████████| 102/102 [00:19<00:00,  5.14it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.42it/s]
+       all        583       1581      0.937      0.957      0.976      0.555
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     6/100      2.84G   1.79713863      0.25309617          1.54404246: 100%|██████████| 102/102 [00:20<00:00,  5.09it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:11<00:00,  3.31it/s]
+       all        583       1581      0.931      0.956      0.965      0.528
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     7/100      2.84G   1.58814433      0.22564340          1.36250094: 100%|██████████| 102/102 [00:20<00:00,  4.94it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:09<00:00,  3.79it/s]
+       all        583       1581      0.936      0.959      0.976      0.543
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     8/100      2.84G   1.37192497      0.20910744          1.16281753: 100%|██████████| 102/102 [00:20<00:00,  5.01it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.45it/s]
+       all        583       1581      0.944       0.95      0.969      0.528
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     9/100      2.84G   1.13796863      0.18846046          0.94950816: 100%|██████████| 102/102 [00:20<00:00,  4.88it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.42it/s]
+       all        583       1581      0.942      0.951      0.975      0.529
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     10/100      2.84G   0.93406534      0.18043791          0.75362743: 100%|██████████| 102/102 [00:19<00:00,  5.14it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:11<00:00,  3.30it/s]
+       all        583       1581      0.937      0.953      0.976      0.543
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     11/100      2.84G   0.71717302      0.15732973          0.55984328: 100%|██████████| 102/102 [00:20<00:00,  4.89it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.55it/s]
+       all        583       1581      0.943      0.947      0.971      0.545
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     12/100      2.84G   0.55803068      0.14382443          0.41420625: 100%|██████████| 102/102 [00:21<00:00,  4.85it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.59it/s]
+       all        583       1581      0.936      0.951      0.969      0.541
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     13/100      2.84G   0.44326156      0.13104749          0.31221407: 100%|██████████| 102/102 [00:19<00:00,  5.20it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.47it/s]
+       all        583       1581      0.941      0.948      0.973      0.546
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     14/100      2.84G   0.32507787      0.10575174          0.21932613: 100%|██████████| 102/102 [00:20<00:00,  4.93it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:11<00:00,  3.25it/s]
+       all        583       1581      0.933      0.939      0.967      0.551
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     15/100      2.84G   0.25283310      0.08838848          0.16444461: 100%|██████████| 102/102 [00:21<00:00,  4.80it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.43it/s]
+       all        583       1581      0.935       0.94      0.971      0.554
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     16/100      2.84G   0.19665531      0.07206706          0.12458825: 100%|██████████| 102/102 [00:21<00:00,  4.73it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.39it/s]
+       all        583       1581      0.929      0.935      0.966      0.553
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     17/100      2.84G   0.16840651      0.06465379          0.10375272: 100%|██████████| 102/102 [00:20<00:00,  4.86it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:11<00:00,  3.25it/s]
+       all        583       1581       0.94      0.939      0.971      0.552
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     18/100      2.84G   0.13658210      0.05332419          0.08325791: 100%|██████████| 102/102 [00:20<00:00,  5.02it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.58it/s]
+       all        583       1581      0.936      0.936      0.969      0.552
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     19/100      2.84G   0.14360037      0.05861593          0.08498445: 100%|██████████| 102/102 [00:22<00:00,  4.61it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.66it/s]
+       all        583       1581       0.94      0.928      0.961      0.549
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     20/100      2.84G   0.12524434      0.05576298          0.06948135: 100%|██████████| 102/102 [00:20<00:00,  4.97it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:11<00:00,  3.17it/s]
+       all        583       1581      0.917      0.946      0.968      0.549
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     21/100      2.84G   0.13037216      0.05701436          0.07335780: 100%|██████████| 102/102 [00:20<00:00,  4.95it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:11<00:00,  3.29it/s]
+       all        583       1581      0.935      0.942      0.964      0.553
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     22/100      2.84G   0.11828000      0.05205105          0.06622895: 100%|██████████| 102/102 [00:21<00:00,  4.73it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:09<00:00,  3.77it/s]
+       all        583       1581      0.935      0.932      0.968      0.559
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     23/100      2.84G   0.09244879      0.04177665          0.05067214: 100%|██████████| 102/102 [00:22<00:00,  4.62it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.52it/s]
+       all        583       1581       0.92      0.929      0.965      0.553
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     24/100      2.84G   0.07138333      0.03441469          0.03696865: 100%|██████████| 102/102 [00:21<00:00,  4.81it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:11<00:00,  3.35it/s]
+       all        583       1581       0.94      0.942      0.967      0.561
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     25/100      2.84G   0.07763689      0.03528941          0.04234749: 100%|██████████| 102/102 [00:21<00:00,  4.82it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.40it/s]
+       all        583       1581      0.936      0.937      0.964      0.562
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     26/100      2.84G   0.05269701      0.02685606          0.02584095: 100%|██████████| 102/102 [00:21<00:00,  4.76it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:09<00:00,  3.90it/s]
+       all        583       1581      0.939      0.939      0.965      0.561
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     27/100      2.84G   0.03781207      0.01844628          0.01936578: 100%|██████████| 102/102 [00:21<00:00,  4.82it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.39it/s]
+       all        583       1581      0.939      0.937      0.967      0.569
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     28/100      2.84G   0.02991612      0.01339671          0.01651941: 100%|██████████| 102/102 [00:21<00:00,  4.75it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.44it/s]
+       all        583       1581      0.939       0.93      0.964      0.563
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     29/100      2.84G   0.02552347      0.01075913          0.01476434: 100%|██████████| 102/102 [00:20<00:00,  4.99it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:09<00:00,  3.79it/s]
+       all        583       1581      0.938      0.934      0.961      0.562
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     30/100      2.84G   0.02366965      0.01046135          0.01320830: 100%|██████████| 102/102 [00:21<00:00,  4.86it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.48it/s]
+       all        583       1581      0.943      0.927      0.963       0.56
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     31/100      2.84G   0.02308857      0.01098938          0.01209919: 100%|██████████| 102/102 [00:21<00:00,  4.82it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.37it/s]
+       all        583       1581       0.94      0.932       0.96      0.562
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     32/100      2.84G   0.02312200      0.01192957          0.01119243: 100%|██████████| 102/102 [00:20<00:00,  5.08it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.40it/s]
+       all        583       1581       0.94      0.932      0.962      0.562
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     33/100      2.84G   0.02384432      0.01347025          0.01037407: 100%|██████████| 102/102 [00:21<00:00,  4.83it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.66it/s]
+       all        583       1581      0.942      0.933      0.962      0.565
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     34/100      2.84G   0.02491928      0.01513852          0.00978076: 100%|██████████| 102/102 [00:21<00:00,  4.71it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:11<00:00,  3.34it/s]
+       all        583       1581      0.941      0.937      0.964      0.559
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     35/100      2.84G   0.02592714      0.01657263          0.00935451: 100%|██████████| 102/102 [00:20<00:00,  4.86it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:11<00:00,  3.27it/s]
+       all        583       1581      0.942       0.93      0.964      0.562
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     36/100      2.84G   0.02929019      0.01908292          0.01020727: 100%|██████████| 102/102 [00:21<00:00,  4.83it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.56it/s]
+       all        583       1581      0.939      0.933      0.961       0.56
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     37/100      2.84G   0.02923715      0.02073165          0.00850550: 100%|██████████| 102/102 [00:20<00:00,  4.93it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.56it/s]
+       all        583       1581      0.938      0.939      0.962      0.567
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     38/100      2.84G   0.04438556      0.02905818          0.01532738: 100%|██████████| 102/102 [00:21<00:00,  4.82it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:11<00:00,  3.31it/s]
+       all        583       1581      0.939      0.925      0.959      0.554
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     39/100      2.84G   0.79683224      0.20697852          0.58985371: 100%|██████████| 102/102 [00:20<00:00,  4.91it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:11<00:00,  3.13it/s]
+       all        583       1581       0.91      0.939       0.96      0.531
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     40/100      2.84G   0.51538279      0.17448747          0.34089532: 100%|██████████| 102/102 [00:20<00:00,  4.90it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:09<00:00,  3.83it/s]
+       all        583       1581      0.932      0.943      0.966      0.562
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     41/100      2.84G   0.25263925      0.10372227          0.14891697: 100%|██████████| 102/102 [00:20<00:00,  4.96it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.69it/s]
+       all        583       1581      0.918      0.937      0.966       0.56
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     42/100      2.84G   0.13730840      0.06620496          0.07110344: 100%|██████████| 102/102 [00:20<00:00,  4.88it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:11<00:00,  3.34it/s]
+       all        583       1581      0.941      0.931      0.963      0.565
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     43/100      2.84G   0.08248290      0.04179017          0.04069274: 100%|██████████| 102/102 [00:20<00:00,  4.89it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:11<00:00,  3.22it/s]
+       all        583       1581      0.935      0.933      0.967      0.564
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     44/100      2.84G   0.05366534      0.02813154          0.02553381: 100%|██████████| 102/102 [00:21<00:00,  4.73it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.48it/s]
+       all        583       1581       0.93      0.933      0.963      0.567
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     45/100      2.84G   0.03933660      0.01830608          0.02103052: 100%|██████████| 102/102 [00:19<00:00,  5.22it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:11<00:00,  3.26it/s]
+       all        583       1581      0.928      0.933      0.967       0.57
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     46/100      2.84G   0.02424374      0.01191933          0.01232441: 100%|██████████| 102/102 [00:20<00:00,  4.88it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.46it/s]
+       all        583       1581      0.934      0.933      0.963      0.566
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     47/100      2.84G   0.01636597      0.00699622          0.00936975: 100%|██████████| 102/102 [00:21<00:00,  4.65it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.59it/s]
+       all        583       1581      0.929      0.931      0.963      0.569
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     48/100      2.84G   0.01099784      0.00485120          0.00614665: 100%|██████████| 102/102 [00:22<00:00,  4.60it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.64it/s]
+       all        583       1581      0.933      0.931      0.964      0.568
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     49/100      2.84G   0.00874835      0.00324022          0.00550813: 100%|██████████| 102/102 [00:20<00:00,  4.95it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:12<00:00,  3.07it/s]
+       all        583       1581      0.932       0.93      0.964       0.57
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     50/100      2.84G   0.00744535      0.00237233          0.00507302: 100%|██████████| 102/102 [00:20<00:00,  4.95it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:11<00:00,  3.33it/s]
+       all        583       1581      0.931      0.931      0.963      0.568
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     51/100      2.84G   0.00682678      0.00210932          0.00471746: 100%|██████████| 102/102 [00:21<00:00,  4.65it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:09<00:00,  3.72it/s]
+       all        583       1581      0.932       0.93      0.963      0.568
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     52/100      2.84G   0.00652506      0.00213976          0.00438530: 100%|██████████| 102/102 [00:21<00:00,  4.71it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.62it/s]
+       all        583       1581      0.933      0.931      0.963       0.57
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     53/100      2.84G   0.00655565      0.00245072          0.00410493: 100%|██████████| 102/102 [00:21<00:00,  4.83it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:11<00:00,  3.30it/s]
+       all        583       1581      0.935      0.929      0.963      0.569
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     54/100      2.84G   0.00677981      0.00292412          0.00385570: 100%|██████████| 102/102 [00:20<00:00,  4.99it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:12<00:00,  3.07it/s]
+       all        583       1581      0.935      0.932      0.963      0.569
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     55/100      2.84G   0.00717367      0.00352073          0.00365294: 100%|██████████| 102/102 [00:20<00:00,  4.89it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.64it/s]
+       all        583       1581      0.935      0.929      0.962      0.569
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     56/100      2.84G   0.00796402      0.00453279          0.00343123: 100%|██████████| 102/102 [00:21<00:00,  4.84it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:11<00:00,  3.29it/s]
+       all        583       1581      0.934      0.931      0.964       0.56
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     57/100      2.84G   0.00965452      0.00635247          0.00330205: 100%|██████████| 102/102 [00:21<00:00,  4.70it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:11<00:00,  3.24it/s]
+       all        583       1581      0.923      0.943      0.962      0.567
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     58/100      2.84G   0.01137458      0.00821460          0.00315998: 100%|██████████| 102/102 [00:20<00:00,  4.88it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.61it/s]
+       all        583       1581      0.935       0.93      0.964      0.566
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     59/100      2.84G   0.01358388      0.01051790          0.00306599: 100%|██████████| 102/102 [00:21<00:00,  4.71it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.62it/s]
+       all        583       1581      0.934      0.929      0.961      0.565
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     60/100      2.84G   0.01671694      0.01374902          0.00296792: 100%|██████████| 102/102 [00:19<00:00,  5.17it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:11<00:00,  3.25it/s]
+       all        583       1581      0.904      0.959      0.964      0.567
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     61/100      2.84G   0.01799592      0.01512913          0.00286679: 100%|██████████| 102/102 [00:20<00:00,  4.99it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:11<00:00,  3.28it/s]
+       all        583       1581      0.906      0.956      0.964      0.569
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     62/100      2.84G   0.01779791      0.01493484          0.00286306: 100%|██████████| 102/102 [00:20<00:00,  4.95it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:09<00:00,  3.78it/s]
+       all        583       1581      0.937      0.931      0.964      0.572
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     63/100      2.84G   0.01578710      0.01310505          0.00268205: 100%|██████████| 102/102 [00:20<00:00,  5.09it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.37it/s]
+       all        583       1581       0.93       0.93      0.962       0.57
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     64/100      2.84G   0.01516196      0.01259842          0.00256355: 100%|██████████| 102/102 [00:19<00:00,  5.14it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:11<00:00,  3.20it/s]
+       all        583       1581      0.904       0.96      0.964      0.571
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     65/100      2.84G   0.01516690      0.01267411          0.00249279: 100%|██████████| 102/102 [00:20<00:00,  4.94it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:09<00:00,  3.78it/s]
+       all        583       1581      0.931      0.935      0.963      0.572
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     66/100      2.84G   0.01408385      0.01175050          0.00233334: 100%|██████████| 102/102 [00:22<00:00,  4.61it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.46it/s]
+       all        583       1581      0.903      0.959      0.964      0.569
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     67/100      2.84G   0.01390767      0.01166987          0.00223780: 100%|██████████| 102/102 [00:20<00:00,  5.06it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.37it/s]
+       all        583       1581      0.934      0.935      0.962      0.571
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     68/100      2.84G   0.01492353      0.01278641          0.00213711: 100%|██████████| 102/102 [00:20<00:00,  5.04it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:11<00:00,  3.28it/s]
+       all        583       1581      0.918      0.954      0.963       0.57
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     69/100      2.84G   0.01579485      0.01372374          0.00207111: 100%|██████████| 102/102 [00:21<00:00,  4.68it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:09<00:00,  3.84it/s]
+       all        583       1581      0.928      0.938      0.962      0.573
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     70/100      2.84G   0.01532868      0.01335987          0.00196881: 100%|██████████| 102/102 [00:21<00:00,  4.71it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.45it/s]
+       all        583       1581      0.939      0.931      0.962      0.573
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     71/100      2.84G   0.01642492      0.01448100          0.00194391: 100%|██████████| 102/102 [00:20<00:00,  5.00it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:11<00:00,  3.31it/s]
+       all        583       1581       0.93      0.931      0.963      0.573
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     72/100      2.84G   0.01715332      0.01526768          0.00188564: 100%|██████████| 102/102 [00:21<00:00,  4.78it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.53it/s]
+       all        583       1581      0.917      0.954      0.965       0.58
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     73/100      2.84G   0.01776789      0.01585982          0.00190807: 100%|██████████| 102/102 [00:21<00:00,  4.66it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.56it/s]
+       all        583       1581      0.919      0.948      0.962      0.578
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     74/100      2.84G   0.01640221      0.01462261          0.00177960: 100%|██████████| 102/102 [00:20<00:00,  4.92it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.38it/s]
+       all        583       1581      0.913      0.953      0.963      0.578
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     75/100      2.84G   0.01605649      0.01433742          0.00171908: 100%|██████████| 102/102 [00:20<00:00,  5.07it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:11<00:00,  3.33it/s]
+       all        583       1581       0.91       0.96      0.965      0.577
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     76/100      2.84G   0.01630000      0.01464980          0.00165020: 100%|██████████| 102/102 [00:21<00:00,  4.77it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:09<00:00,  3.78it/s]
+       all        583       1581      0.906      0.955      0.961      0.576
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     77/100      2.84G   0.01588197      0.01430833          0.00157364: 100%|██████████| 102/102 [00:20<00:00,  4.96it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.57it/s]
+       all        583       1581      0.913      0.959      0.964      0.578
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     78/100      2.84G   0.01546206      0.01396759          0.00149447: 100%|██████████| 102/102 [00:21<00:00,  4.85it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.41it/s]
+       all        583       1581      0.933      0.938      0.964      0.579
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     79/100      2.84G   0.01658266      0.01508741          0.00149525: 100%|██████████| 102/102 [00:20<00:00,  4.89it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:11<00:00,  3.34it/s]
+       all        583       1581      0.926      0.945      0.963      0.576
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     80/100      2.84G   0.01898338      0.01744389          0.00153948: 100%|██████████| 102/102 [00:21<00:00,  4.80it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.49it/s]
+       all        583       1581      0.917      0.961      0.966      0.583
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     81/100      2.84G   0.01878580      0.01732640          0.00145940: 100%|██████████| 102/102 [00:20<00:00,  4.99it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:11<00:00,  3.24it/s]
+       all        583       1581      0.911      0.956      0.962      0.574
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     82/100      2.84G   0.02069619      0.01924571          0.00145048: 100%|██████████| 102/102 [00:20<00:00,  4.98it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:11<00:00,  3.29it/s]
+       all        583       1581      0.908      0.957      0.963      0.573
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     83/100      2.84G   0.02078048      0.01938240          0.00139808: 100%|██████████| 102/102 [00:20<00:00,  4.98it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:09<00:00,  3.90it/s]
+       all        583       1581      0.929      0.948      0.964       0.58
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     84/100      2.84G   0.66214753      0.15471569          0.50743184: 100%|██████████| 102/102 [00:20<00:00,  4.88it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:09<00:00,  3.76it/s]
+       all        583       1581      0.936      0.945      0.961      0.544
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     85/100      2.84G   0.51285267      0.14721616          0.36563650: 100%|██████████| 102/102 [00:21<00:00,  4.79it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:11<00:00,  3.32it/s]
+       all        583       1581      0.926      0.942      0.964      0.561
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     86/100      2.84G   0.23158089      0.08781264          0.14376825: 100%|██████████| 102/102 [00:20<00:00,  4.99it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:11<00:00,  3.30it/s]
+       all        583       1581      0.936       0.95      0.966       0.57
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     87/100      2.84G   0.09800759      0.04569715          0.05231044: 100%|██████████| 102/102 [00:21<00:00,  4.76it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:09<00:00,  3.91it/s]
+       all        583       1581      0.948      0.945      0.963       0.57
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     88/100      2.84G   0.06916385      0.03259394          0.03656991: 100%|██████████| 102/102 [00:21<00:00,  4.73it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:11<00:00,  3.35it/s]
+       all        583       1581      0.943      0.947      0.967      0.576
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     89/100      2.84G   0.03271346      0.01730697          0.01540649: 100%|██████████| 102/102 [00:21<00:00,  4.81it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.40it/s]
+       all        583       1581      0.945      0.939      0.963      0.575
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     90/100      2.84G   0.02162207      0.01072599          0.01089608: 100%|██████████| 102/102 [00:21<00:00,  4.85it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.60it/s]
+       all        583       1581      0.937      0.947      0.968       0.58
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     91/100      2.84G   0.00877641      0.00559805          0.00317836: 100%|██████████| 102/102 [00:22<00:00,  4.61it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.41it/s]
+       all        583       1581      0.944      0.939      0.967      0.577
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     92/100      2.84G   0.00539763      0.00302690          0.00237074: 100%|██████████| 102/102 [00:20<00:00,  4.99it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.41it/s]
+       all        583       1581      0.944      0.938      0.967      0.578
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     93/100      2.84G   0.00391838      0.00180054          0.00211785: 100%|██████████| 102/102 [00:20<00:00,  4.92it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:11<00:00,  3.36it/s]
+       all        583       1581      0.945      0.937      0.967      0.578
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     94/100      2.84G   0.00305091      0.00114996          0.00190095: 100%|██████████| 102/102 [00:20<00:00,  4.92it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:09<00:00,  3.86it/s]
+       all        583       1581      0.945      0.936      0.964      0.576
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     95/100      2.84G   0.00257570      0.00083201          0.00174368: 100%|██████████| 102/102 [00:20<00:00,  4.93it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.46it/s]
+       all        583       1581      0.922      0.959      0.967      0.578
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     96/100      2.84G   0.00224853      0.00063496          0.00161356: 100%|██████████| 102/102 [00:21<00:00,  4.84it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.38it/s]
+       all        583       1581      0.945      0.936      0.964      0.575
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     97/100      2.84G   0.00203833      0.00054012          0.00149821: 100%|██████████| 102/102 [00:20<00:00,  5.07it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:11<00:00,  3.25it/s]
+       all        583       1581      0.945      0.935      0.963      0.572
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     98/100      2.84G   0.00186045      0.00046473          0.00139571: 100%|██████████| 102/102 [00:21<00:00,  4.76it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.65it/s]
+       all        583       1581      0.944      0.934      0.964      0.574
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     99/100      2.84G   0.00178447      0.00047080          0.00131367: 100%|██████████| 102/102 [00:22<00:00,  4.59it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:10<00:00,  3.60it/s]
+       all        583       1581      0.944      0.935      0.963      0.576
+
+     epoch   GPU_mem totalLoss    bboxRegressionLoss   classificationsLoss
+     100/100      2.84G   0.00171045      0.00047541          0.00123504: 100%|██████████| 102/102 [00:21<00:00,  4.84it/s]
+     Class     Images  Instances          P          R      mAP50   mAP50-95: 100%|██████████| 37/37 [00:11<00:00,  3.11it/s]
+       all        583       1581      0.944      0.935      0.962      0.571
+  open eye        583        607      0.915      0.928      0.955      0.465
+open mouth        583         35      0.941      0.943      0.968      0.727
+closed eye        583        409      0.934      0.895      0.936       0.49
+closed mouth        583        530      0.987      0.974       0.99      0.603
+Speed: 1.2ms pre-process, 10.9ms inference per image 
+
